@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B0D0C"/>
+      <stop offset="100%" stop-color="#123C2E"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#g3)"/>
+  <g stroke="#F4F5F3" stroke-opacity="0.12">
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+  </g>
+  <rect x="0" y="860" width="1200" height="40" fill="#0B0D0C"/>
+  <text x="40" y="855" font-family="Georgia, serif" font-size="15" fill="#F4F5F3" fill-opacity="0.55">MS Tower — Vista aérea — implantação (demonstração)</text>
+</svg>

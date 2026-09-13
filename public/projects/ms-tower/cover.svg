@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1F5A43"/>
+      <stop offset="100%" stop-color="#0B0D0C"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F4F5F3" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#F4F5F3" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <g opacity="0.9">
+    <rect x="470" y="120" width="260" height="780" rx="6" fill="url(#glass)" stroke="#F4F5F3" stroke-opacity="0.25"/>
+    <rect x="330" y="340" width="140" height="560" rx="6" fill="url(#glass)" stroke="#F4F5F3" stroke-opacity="0.18"/>
+    <rect x="730" y="300" width="150" height="600" rx="6" fill="url(#glass)" stroke="#F4F5F3" stroke-opacity="0.18"/>
+    <g stroke="#F4F5F3" stroke-opacity="0.15">
+      <line x1="470" y1="180" x2="730" y2="180"/>
+      <line x1="470" y1="240" x2="730" y2="240"/>
+      <line x1="470" y1="300" x2="730" y2="300"/>
+      <line x1="470" y1="360" x2="730" y2="360"/>
+      <line x1="470" y1="420" x2="730" y2="420"/>
+      <line x1="470" y1="480" x2="730" y2="480"/>
+      <line x1="470" y1="540" x2="730" y2="540"/>
+      <line x1="470" y1="600" x2="730" y2="600"/>
+      <line x1="470" y1="660" x2="730" y2="660"/>
+      <line x1="470" y1="720" x2="730" y2="720"/>
+    </g>
+  </g>
+  <rect x="0" y="860" width="1200" height="40" fill="#0B0D0C"/>
+  <text x="40" y="855" font-family="Georgia, serif" font-size="15" fill="#F4F5F3" fill-opacity="0.55">MS Tower — imagem de demonstração</text>
+</svg>

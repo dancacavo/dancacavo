@@ -1,0 +1,28 @@
+rules_version = '2';
+
+// Regras do Firebase Storage — MS Investor.
+// Leitura pública dos arquivos (necessária para exibir imagens de
+// empreendimentos e permitir download de documentos via URL assinada
+// pelo próprio Storage); escrita restrita a administradores autenticados.
+// Para documentos privados de um investidor específico, o controle de
+// acesso é reforçado no Firestore (coleção `documents`), que guarda apenas
+// a URL — a listagem e a exibição de links já respeitam o `userId`.
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null &&
+        firestore.exists(/databases/(default)/documents/users/$(request.auth.uid)) &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    match /projects/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /documents/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

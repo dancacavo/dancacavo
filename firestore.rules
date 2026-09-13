@@ -1,0 +1,82 @@
+rules_version = '2';
+
+/**
+ * Regras de segurança do Firestore — MS Investor.
+ *
+ * Princípios:
+ * - Um investidor só pode ler seus próprios dados (perfil, investimentos,
+ *   documentos privados, notificações).
+ * - Conteúdo de catálogo (empreendimentos, documentos públicos,
+ *   comunicados) é de leitura pública e escrita restrita a administradores.
+ * - Nenhuma escrita de dados financeiros sensíveis é permitida diretamente
+ *   pelo cliente além do necessário; registros de investimento vêm de
+ *   processos controlados (admin/backend), nunca criados livremente pelo
+ *   próprio usuário.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ── users ────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      // Criação do próprio perfil no primeiro login; sem alterar 'role'.
+      allow create: if isOwner(userId) &&
+        request.resource.data.role == 'investor';
+      allow update: if (isOwner(userId) &&
+        request.resource.data.role == resource.data.role) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── projects (público para leitura; escrita restrita ao admin) ──────
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── investments (somente o dono ou admin; criação/edição só admin) ──
+    match /investments/{investmentId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── documents (público quando sem userId; privado quando com userId) ─
+    match /documents/{documentId} {
+      allow read: if isAdmin() ||
+        resource.data.userId == null ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow write: if isAdmin();
+    }
+
+    // ── notifications (somente o dono) ──────────────────────────────────
+    match /notifications/{notificationId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      // O usuário só pode marcar como lida (não criar/apagar).
+      allow update: if isSignedIn() &&
+        resource.data.userId == request.auth.uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if isAdmin();
+    }
+
+    // ── announcements (leitura pública, escrita só admin) ───────────────
+    match /announcements/{announcementId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
