@@ -1,6 +1,7 @@
 import { ArrowUpRight, LineChart, ShieldCheck, FileStack, LayoutGrid, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProjectCard } from "@/components/domain/ProjectCard";
+import { LegalDisclaimer } from "@/components/layout/LegalDisclaimer";
 import { getFeaturedProjects } from "@/lib/data/projects";
 
 const STEPS = [
@@ -35,15 +36,20 @@ export default async function LandingPage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-ms-black text-white">
+      <section className="grain relative overflow-hidden bg-ms-black text-white">
+        {/* ilustração de skyline autoral, em baixa opacidade + desfoque, só para dar profundidade */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0 bg-skyline opacity-50 blur-[1px]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(60% 50% at 80% 0%, rgba(31,90,67,0.5) 0%, transparent 60%), radial-gradient(50% 40% at 10% 100%, rgba(18,60,46,0.5) 0%, transparent 60%)",
+              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.35) 40%, rgba(11,13,12,0.92) 100%), radial-gradient(60% 50% at 80% 0%, rgba(31,90,67,0.45) 0%, transparent 60%)",
           }}
         />
-        <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-24 sm:px-8 sm:pb-28 sm:pt-32">
+        <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
           <p className="animate-fade-up text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
             Investimentos imobiliários selecionados
           </p>
@@ -137,6 +143,35 @@ export default async function LandingPage() {
         </div>
       </section>
 
+      {/* CTA FINAL */}
+      <section className="grain relative overflow-hidden bg-ms-black py-24 text-white sm:py-32">
+        <div className="pointer-events-none absolute inset-0 bg-skyline opacity-35" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(11,13,12,0.85) 0%, rgba(11,13,12,0.6) 45%, rgba(11,13,12,0.95) 100%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            Comece agora
+          </span>
+          <h2 className="mt-4 font-display text-3xl leading-tight sm:text-4xl">
+            Sua próxima decisão de investimento merece o acompanhamento certo.
+          </h2>
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button href="/investimentos" variant="light" size="lg">
+              Conhecer oportunidades
+              <ArrowUpRight size={18} />
+            </Button>
+            <Button href="/cadastro" variant="outline" size="lg" className="border-white/20 text-white hover:border-white/40 hover:bg-white/5">
+              Criar conta
+            </Button>
+          </div>
+          <LegalDisclaimer className="mx-auto mt-14 max-w-2xl text-white/40" />
+        </div>
+      </section>
     </>
   );
 }

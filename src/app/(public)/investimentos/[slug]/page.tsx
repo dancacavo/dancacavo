@@ -51,16 +51,17 @@ export default async function ProjectPage({
   return (
     <div>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-ms-black text-white">
+      <section className="grain relative overflow-hidden bg-ms-black text-white">
         <div className="absolute inset-0">
           <Image
             src={project.coverImage}
             alt={project.name}
             fill
             priority
-            className="object-cover opacity-50"
+            className="object-cover opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-ms-black via-ms-black/60 to-ms-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ms-black via-ms-black/55 to-ms-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ms-black/40 via-transparent to-transparent" />
         </div>
         <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-36">
           <div className="flex flex-wrap items-center gap-2">
@@ -221,17 +222,27 @@ export default async function ProjectPage({
       </section>
 
       {/* CTA FINAL */}
-      <section className="mx-auto max-w-6xl px-5 py-16 text-center sm:px-8 sm:py-24">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
-          Quero investir
-        </span>
-        <h2 className="mx-auto mt-3 max-w-xl font-display text-3xl text-ms-black sm:text-4xl">
-          Pronto para investir no {project.name}?
-        </h2>
-        <div className="mt-8 flex justify-center">
-          <InvestButton project={project} />
+      <section className="grain relative overflow-hidden bg-ms-black py-20 text-center text-white sm:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-skyline opacity-35" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(11,13,12,0.85) 0%, rgba(11,13,12,0.55) 45%, rgba(11,13,12,0.95) 100%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-2xl px-5 sm:px-8">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            Quero investir
+          </span>
+          <h2 className="mx-auto mt-3 max-w-xl font-display text-3xl sm:text-4xl">
+            Pronto para investir no {project.name}?
+          </h2>
+          <div className="mt-9 flex justify-center">
+            <InvestButton project={project} />
+          </div>
+          <LegalDisclaimer className="mx-auto mt-12 max-w-2xl text-white/40" />
         </div>
-        <LegalDisclaimer className="mx-auto mt-10 max-w-2xl" />
       </section>
     </div>
   );
