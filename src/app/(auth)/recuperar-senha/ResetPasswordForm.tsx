@@ -59,7 +59,7 @@ export function ResetPasswordForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={isDemoMode}
-          className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50"
+          className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50"
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
         <Button type="submit" className="w-full" disabled={loading || isDemoMode}>

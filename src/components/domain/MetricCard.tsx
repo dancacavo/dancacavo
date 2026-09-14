@@ -19,7 +19,7 @@ export function MetricCard({
     <Card className={cn("p-6", className)}>
       <div className="flex items-center justify-between">
         <span className="text-sm text-ms-gray-500">{label}</span>
-        {icon && <span className="text-ms-green-900">{icon}</span>}
+        {icon && <span className="text-ms-gold-900">{icon}</span>}
       </div>
       <div className="mt-3 font-display text-2xl text-ms-black sm:text-3xl">
         {value}

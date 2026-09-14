@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
-      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">Sobre</span>
+      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">Sobre</span>
       <h1 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">
         Relacionamento e transparência entre investidores e empreendimentos.
       </h1>
@@ -27,15 +27,20 @@ export default function SobrePage() {
         a <strong className="font-medium text-ms-black">SONICA</strong>, responsável
         pela execução da operação.
       </p>
+      <p className="mt-4 leading-relaxed text-ms-gray-500">
+        Os empreendimentos apresentados na plataforma são desenvolvidos pelo{" "}
+        <strong className="font-medium text-ms-black">Grupo Marques Silveira</strong>,
+        incorporadora responsável pelo projeto, execução e entrega das obras.
+      </p>
 
       <div className="mt-14 grid gap-8 sm:grid-cols-3">
         {[
-          { icon: Building2, title: "Curadoria de projetos", description: "Empreendimentos selecionados com critério e transparência." },
+          { icon: Building2, title: "Curadoria de projetos", description: "Empreendimentos do Grupo Marques Silveira, selecionados com critério e transparência." },
           { icon: ShieldCheck, title: "Parceiro regulado", description: "Operação de investimento conduzida pela plataforma parceira SONICA." },
           { icon: Users, title: "Foco no investidor", description: "Acompanhamento, documentos e comunicação centralizados." },
         ].map((item) => (
           <div key={item.title}>
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ms-green-900/[0.08] text-ms-green-900">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ms-gold-900/[0.08] text-ms-gold-900">
               <item.icon size={20} />
             </div>
             <h3 className="mt-4 font-display text-lg text-ms-black">{item.title}</h3>

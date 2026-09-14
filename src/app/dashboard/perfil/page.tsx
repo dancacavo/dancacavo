@@ -41,7 +41,7 @@ export default function PerfilPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={isDemoMode}
-            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50"
+            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50"
           />
         </div>
         <div>
@@ -58,11 +58,11 @@ export default function PerfilPage() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             disabled={isDemoMode}
-            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50"
+            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50"
           />
         </div>
 
-        {saved && <p className="text-sm text-ms-green-900">Dados atualizados.</p>}
+        {saved && <p className="text-sm text-ms-gold-900">Dados atualizados.</p>}
 
         <Button type="submit" disabled={saving || isDemoMode}>
           {saving ? "Salvando…" : "Salvar alterações"}

@@ -2,7 +2,7 @@
   <defs>
     <linearGradient id="lounge" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0B0D0C"/>
-      <stop offset="100%" stop-color="#123C2E"/>
+      <stop offset="100%" stop-color="#241C10"/>
     </linearGradient>
     <linearGradient id="warmGlow" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#E8C97A" stop-opacity="0.28"/>

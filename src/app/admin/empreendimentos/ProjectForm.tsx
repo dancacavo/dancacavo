@@ -38,9 +38,9 @@ function Field({
 }
 
 const inputClass =
-  "h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50";
+  "h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50";
 const textareaClass =
-  "w-full rounded-xl border border-ms-black/10 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50";
+  "w-full rounded-xl border border-ms-black/10 bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50";
 
 export function ProjectForm({ project }: { project?: Project }) {
   const router = useRouter();

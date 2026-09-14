@@ -58,7 +58,7 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isDemoMode}
-            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50"
+            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50"
           />
         </div>
         <div>
@@ -74,7 +74,7 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isDemoMode}
-            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50"
+            className="h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50"
           />
         </div>
 

@@ -17,7 +17,7 @@ const INVESTMENT_LABELS: Record<InvestmentStatus, string> = {
 };
 
 const TONE: Record<string, string> = {
-  positive: "bg-ms-green-900/[0.08] text-ms-green-900",
+  positive: "bg-ms-gold-900/[0.08] text-ms-gold-900",
   neutral: "bg-ms-gray-500/[0.1] text-ms-gray-500",
   warning: "bg-amber-500/10 text-amber-700",
 };

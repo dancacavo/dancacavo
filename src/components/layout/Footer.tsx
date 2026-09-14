@@ -13,6 +13,9 @@ export function Footer() {
               Relacionamento e acompanhamento de investidores em
               empreendimentos imobiliários selecionados.
             </p>
+            <p className="mt-4 text-xs font-medium uppercase tracking-wider text-ms-gold-900">
+              Um empreendimento do Grupo Marques Silveira
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:flex sm:gap-16">

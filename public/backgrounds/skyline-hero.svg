@@ -2,30 +2,30 @@
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0B0D0C"/>
-      <stop offset="55%" stop-color="#0D1712"/>
-      <stop offset="100%" stop-color="#123C2E"/>
+      <stop offset="55%" stop-color="#17130C"/>
+      <stop offset="100%" stop-color="#241C10"/>
     </linearGradient>
 
     <radialGradient id="glow" cx="72%" cy="38%" r="42%">
-      <stop offset="0%" stop-color="#2D7A5C" stop-opacity="0.55"/>
-      <stop offset="55%" stop-color="#1F5A43" stop-opacity="0.16"/>
-      <stop offset="100%" stop-color="#1F5A43" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#C9A227" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#4A3A1B" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#4A3A1B" stop-opacity="0"/>
     </radialGradient>
 
     <linearGradient id="farBuilding" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1B4A39" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#0F241C" stop-opacity="0.55"/>
+      <stop offset="0%" stop-color="#3C2F17" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#1D170D" stop-opacity="0.55"/>
     </linearGradient>
 
     <linearGradient id="midBuilding" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#173B2E"/>
-      <stop offset="100%" stop-color="#0A1611"/>
+      <stop offset="0%" stop-color="#2E2414"/>
+      <stop offset="100%" stop-color="#15100A"/>
     </linearGradient>
 
     <linearGradient id="heroBuilding" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#0F2A20"/>
-      <stop offset="55%" stop-color="#173B2E"/>
-      <stop offset="100%" stop-color="#0B1A14"/>
+      <stop offset="0%" stop-color="#1E1710"/>
+      <stop offset="55%" stop-color="#2E2414"/>
+      <stop offset="100%" stop-color="#14100A"/>
     </linearGradient>
 
     <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
@@ -37,7 +37,7 @@
     <pattern id="windows" width="22" height="30" patternUnits="userSpaceOnUse">
       <rect width="22" height="30" fill="transparent"/>
       <rect x="3" y="4" width="7" height="10" fill="#F4F5F3" opacity="0.05"/>
-      <rect x="13" y="4" width="7" height="10" fill="#DDECD9" opacity="0.14"/>
+      <rect x="13" y="4" width="7" height="10" fill="#FBF3DE" opacity="0.14"/>
       <rect x="3" y="17" width="7" height="10" fill="#F4F5F3" opacity="0.03"/>
       <rect x="13" y="17" width="7" height="10" fill="#F4F5F3" opacity="0.07"/>
     </pattern>
@@ -88,10 +88,10 @@
     <rect x="1180" y="150" width="260" height="930" fill="url(#heroBuilding)"/>
     <rect x="1180" y="150" width="260" height="930" fill="url(#windows)"/>
     <!-- coroamento -->
-    <path d="M1180 150 L1310 60 L1440 150 Z" fill="#173B2E"/>
-    <rect x="1305" y="18" width="10" height="45" fill="#2D7A5C" opacity="0.9"/>
-    <circle cx="1310" cy="14" r="5" fill="#2D7A5C"/>
-    <circle cx="1310" cy="14" r="12" fill="#2D7A5C" opacity="0.35"/>
+    <path d="M1180 150 L1310 60 L1440 150 Z" fill="#2E2414"/>
+    <rect x="1305" y="18" width="10" height="45" fill="#C9A227" opacity="0.9"/>
+    <circle cx="1310" cy="14" r="5" fill="#C9A227"/>
+    <circle cx="1310" cy="14" r="12" fill="#C9A227" opacity="0.35"/>
     <!-- linhas verticais sutis de vidro -->
     <g stroke="#0B0D0C" stroke-opacity="0.25" clip-path="url(#clipHero)">
       <line x1="1245" y1="150" x2="1245" y2="1080"/>

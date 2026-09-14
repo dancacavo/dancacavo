@@ -104,7 +104,7 @@ export default async function ProjectPage({
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
               O projeto
             </span>
             <h2 className="mt-3 font-display text-2xl text-ms-black sm:text-3xl">
@@ -117,16 +117,16 @@ export default async function ProjectPage({
           <div className="flex flex-col justify-between rounded-2xl border border-ms-black/[0.06] bg-ms-gray-100/60 p-6">
             <div className="space-y-4 text-sm">
               <div className="flex items-center gap-3">
-                <Building2 size={16} className="text-ms-green-900" />
+                <Building2 size={16} className="text-ms-gold-900" />
                 <span className="text-ms-gray-500">Tipo de investimento: <span className="font-medium text-ms-black capitalize">{project.investmentType}</span></span>
               </div>
               <div className="flex items-center gap-3">
-                <CalendarDays size={16} className="text-ms-green-900" />
+                <CalendarDays size={16} className="text-ms-gold-900" />
                 <span className="text-ms-gray-500">Entrega prevista: <span className="font-medium text-ms-black">{project.expectedDelivery}</span></span>
               </div>
               {project.availableUnits && (
                 <div className="flex items-center gap-3">
-                  <Layers size={16} className="text-ms-green-900" />
+                  <Layers size={16} className="text-ms-gold-900" />
                   <span className="text-ms-gray-500">Unidades disponíveis: <span className="font-medium text-ms-black">{project.availableUnits}</span></span>
                 </div>
               )}
@@ -142,7 +142,7 @@ export default async function ProjectPage({
       {project.highlights && project.highlights.length > 0 && (
         <section className="bg-ms-gray-100/60 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-5 sm:px-8">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
               Por que {project.name}?
             </span>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -159,7 +159,7 @@ export default async function ProjectPage({
 
       {/* DADOS */}
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
           Dados do empreendimento
         </span>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -182,7 +182,7 @@ export default async function ProjectPage({
       {/* GALERIA */}
       {project.gallery.length > 0 && (
         <section className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-20">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
             Galeria
           </span>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -204,7 +204,7 @@ export default async function ProjectPage({
       {/* DOCUMENTOS */}
       <section className="bg-ms-gray-100/60 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
             Documentos
           </span>
           <div className="mt-8">

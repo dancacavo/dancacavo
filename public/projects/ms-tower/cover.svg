@@ -2,22 +2,22 @@
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0B0D0C"/>
-      <stop offset="45%" stop-color="#0D1712"/>
-      <stop offset="100%" stop-color="#1F5A43"/>
+      <stop offset="45%" stop-color="#17130C"/>
+      <stop offset="100%" stop-color="#4A3A1B"/>
     </linearGradient>
     <radialGradient id="dusk" cx="68%" cy="15%" r="55%">
-      <stop offset="0%" stop-color="#2D7A5C" stop-opacity="0.55"/>
-      <stop offset="60%" stop-color="#1F5A43" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#1F5A43" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#C9A227" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#4A3A1B" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#4A3A1B" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="tower" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#0E241C"/>
-      <stop offset="50%" stop-color="#173B2E"/>
-      <stop offset="100%" stop-color="#0A1611"/>
+      <stop offset="0%" stop-color="#1C160D"/>
+      <stop offset="50%" stop-color="#2E2414"/>
+      <stop offset="100%" stop-color="#15100A"/>
     </linearGradient>
     <linearGradient id="side" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1B4A39" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#0C1D16" stop-opacity="0.7"/>
+      <stop offset="0%" stop-color="#3C2F17" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#171208" stop-opacity="0.7"/>
     </linearGradient>
     <linearGradient id="groundFade" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#0B0D0C" stop-opacity="0"/>
@@ -55,10 +55,10 @@
   </g>
 
   <!-- coroamento -->
-  <path d="M430 90 L560 8 L690 90 Z" fill="#173B2E"/>
-  <rect x="555" y="-28" width="10" height="42" fill="#2D7A5C" opacity="0.9"/>
-  <circle cx="560" cy="-32" r="5" fill="#DDECD9"/>
-  <circle cx="560" cy="-32" r="13" fill="#2D7A5C" opacity="0.4"/>
+  <path d="M430 90 L560 8 L690 90 Z" fill="#2E2414"/>
+  <rect x="555" y="-28" width="10" height="42" fill="#C9A227" opacity="0.9"/>
+  <circle cx="560" cy="-32" r="5" fill="#FBF3DE"/>
+  <circle cx="560" cy="-32" r="13" fill="#C9A227" opacity="0.4"/>
 
   <!-- volume lateral menor, anexo -->
   <rect x="690" y="260" width="120" height="590" fill="url(#side)"/>

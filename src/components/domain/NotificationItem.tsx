@@ -15,7 +15,7 @@ export function NotificationItem({
     <div
       className={cn(
         "flex gap-3 rounded-xl border border-ms-black/[0.06] p-4 transition-colors",
-        notification.read ? "bg-white" : "bg-ms-green-900/[0.04]"
+        notification.read ? "bg-white" : "bg-ms-gold-900/[0.04]"
       )}
     >
       <div
@@ -23,7 +23,7 @@ export function NotificationItem({
           "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
           notification.read
             ? "bg-ms-gray-100 text-ms-gray-500"
-            : "bg-ms-green-900 text-white"
+            : "bg-ms-gold-900 text-white"
         )}
       >
         <Bell size={14} />
@@ -36,7 +36,7 @@ export function NotificationItem({
         </p>
       </div>
       {!notification.read && (
-        <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-ms-green-900" />
+        <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-ms-gold-900" />
       )}
     </div>
   );

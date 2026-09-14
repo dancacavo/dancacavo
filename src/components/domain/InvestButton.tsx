@@ -49,7 +49,7 @@ export function InvestButton({
 
       <Modal open={open} onClose={() => setOpen(false)} title="Você está saindo do MS Investor">
         <div className="flex items-start gap-3 rounded-xl bg-ms-gray-100 p-4">
-          <ShieldCheck size={20} className="mt-0.5 shrink-0 text-ms-green-900" />
+          <ShieldCheck size={20} className="mt-0.5 shrink-0 text-ms-gold-900" />
           <p className="text-sm text-ms-gray-500">
             Você será direcionado à{" "}
             <span className="font-medium text-ms-black">plataforma parceira SONICA</span>,

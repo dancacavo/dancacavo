@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta institucional MS Investor */
+  /* Paleta institucional MS Investor — preto/grafite + dourado
+     (referência: identidade visual Grupo Marques Silveira / FIAM Investimentos) */
   --color-ms-black: #0b0d0c;
-  --color-ms-green-900: #123c2e;
-  --color-ms-green-700: #1f5a43;
-  --color-ms-green-500: #2d7a5c;
+  --color-ms-gold-900: #8a6d1f; /* dourado profundo — texto/ícones sobre branco */
+  --color-ms-gold-700: #b8902e; /* dourado principal — destaques, badges, preenchimentos */
+  --color-ms-gold-500: #e8c97a; /* dourado claro — realces, brilhos, gradientes */
   --color-ms-white: #ffffff;
   --color-ms-gray-100: #f4f5f3;
   --color-ms-gray-500: #66706b;
@@ -19,9 +20,9 @@
   --color-foreground: var(--foreground);
 
   --color-ms-black: var(--color-ms-black);
-  --color-ms-green-900: var(--color-ms-green-900);
-  --color-ms-green-700: var(--color-ms-green-700);
-  --color-ms-green-500: var(--color-ms-green-500);
+  --color-ms-gold-900: var(--color-ms-gold-900);
+  --color-ms-gold-700: var(--color-ms-gold-700);
+  --color-ms-gold-500: var(--color-ms-gold-500);
   --color-ms-white: var(--color-ms-white);
   --color-ms-gray-100: var(--color-ms-gray-100);
   --color-ms-gray-500: var(--color-ms-gray-500);
@@ -59,7 +60,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-ms-green-900);
+  background: var(--color-ms-gold-900);
   color: var(--color-ms-white);
 }
 

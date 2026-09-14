@@ -46,7 +46,7 @@ export default async function LandingPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.35) 40%, rgba(11,13,12,0.92) 100%), radial-gradient(60% 50% at 80% 0%, rgba(31,90,67,0.45) 0%, transparent 60%)",
+              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.35) 40%, rgba(11,13,12,0.92) 100%), radial-gradient(60% 50% at 80% 0%, rgba(184,144,46,0.45) 0%, transparent 60%)",
           }}
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
@@ -75,7 +75,7 @@ export default async function LandingPage() {
       {/* COMO FUNCIONA */}
       <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
         <div className="mb-14 max-w-lg">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
             Como funciona
           </span>
           <h2 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">
@@ -98,7 +98,7 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="mb-14 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div className="max-w-lg">
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
                 Empreendimentos em destaque
               </span>
               <h2 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">
@@ -121,7 +121,7 @@ export default async function LandingPage() {
       {/* SEU PATRIMÔNIO */}
       <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
         <div className="mb-14 max-w-xl">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
             Acompanhamento
           </span>
           <h2 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">
@@ -131,7 +131,7 @@ export default async function LandingPage() {
         <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {BENEFITS.map((benefit) => (
             <div key={benefit.title} className="flex items-start gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ms-green-900/[0.08] text-ms-green-900">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ms-gold-900/[0.08] text-ms-gold-900">
                 <benefit.icon size={20} />
               </div>
               <div>

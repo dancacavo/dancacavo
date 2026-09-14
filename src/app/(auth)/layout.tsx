@@ -23,7 +23,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             questão de acompanhamento.&rdquo;
           </p>
           <p className="mt-4 text-xs uppercase tracking-[0.2em] text-white/40">
-            MS Investor
+            MS Investor · Grupo Marques Silveira
           </p>
         </div>
       </div>

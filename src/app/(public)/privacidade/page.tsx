@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Política de Privacidade" };
 export default function PrivacidadePage() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
-      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">Legal</span>
+      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">Legal</span>
       <h1 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">Política de Privacidade</h1>
       <p className="mt-4 text-sm text-ms-gray-500">
         Documento placeholder — substituir pelo texto jurídico oficial revisado

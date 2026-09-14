@@ -39,7 +39,7 @@ export function DashboardSidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors",
                 active
-                  ? "bg-ms-green-900 text-white"
+                  ? "bg-ms-gold-900 text-white"
                   : "text-ms-black/70 hover:bg-ms-gray-100"
               )}
             >

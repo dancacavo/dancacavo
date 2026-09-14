@@ -19,7 +19,7 @@ const CATEGORY_OPTIONS: { value: DocumentCategory; label: string }[] = [
 ];
 
 const inputClass =
-  "h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-green-900 disabled:opacity-50";
+  "h-11 w-full rounded-xl border border-ms-black/10 bg-white px-4 text-sm outline-none transition-colors focus:border-ms-gold-900 disabled:opacity-50";
 
 export function DocumentUploadForm({ onCreated }: { onCreated?: () => void }) {
   const { isDemoMode } = useAuth();

@@ -15,7 +15,7 @@ export default async function InvestimentosPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
       <div className="max-w-xl">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-green-900">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
           Investimentos
         </span>
         <h1 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">

@@ -16,7 +16,7 @@ export function DashboardTopbar({ unreadCount = 0 }: { unreadCount?: number }) {
       >
         <Bell size={20} />
         {unreadCount > 0 && (
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-ms-green-900" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-ms-gold-900" />
         )}
       </Link>
     </div>
