@@ -4,6 +4,12 @@ import { ProjectCard } from "@/components/domain/ProjectCard";
 import { LegalDisclaimer } from "@/components/layout/LegalDisclaimer";
 import { getFeaturedProjects } from "@/lib/data/projects";
 
+// Busca os empreendimentos a cada acesso (nunca em build) para que uma
+// alteração feita no /admin apareça aqui imediatamente, sem precisar de um
+// novo deploy. Também evita que o Firestore seja consultado durante o build
+// (ambiente de build tem rede mais restrita e pode travar essa chamada).
+export const dynamic = "force-dynamic";
+
 const STEPS = [
   {
     number: "01",

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDetailView } from "@/components/domain/ProjectDetailView";
-import { getProjectBySlug, getPublicProjects } from "@/lib/data/projects";
+import { getProjectBySlug } from "@/lib/data/projects";
 import { getProjectDocuments } from "@/lib/data/documents";
 
-export async function generateStaticParams() {
-  const projects = await getPublicProjects();
-  return projects.map((p) => ({ slug: p.slug }));
-}
+// Sem generateStaticParams: a página é sempre renderizada por acesso (nunca
+// pré-gerada em build), para que um empreendimento novo/editado no /admin
+// apareça imediatamente e o Firestore nunca seja consultado durante o build
+// (onde o ambiente de rede é mais restrito).
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

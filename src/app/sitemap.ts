@@ -3,6 +3,11 @@ import { getPublicProjects } from "@/lib/data/projects";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+// Gera por acesso (nunca em build) — mesmo motivo das páginas de
+// investimentos: evita consultar o Firestore durante o build e mantém o
+// sitemap sempre com a lista atual de empreendimentos.
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPublicProjects();
 

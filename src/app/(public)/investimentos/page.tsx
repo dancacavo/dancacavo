@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     "Conheça os empreendimentos imobiliários selecionados disponíveis para acompanhamento e investimento.",
 };
 
+// Busca a cada acesso (nunca em build) — ver comentário equivalente na home.
+export const dynamic = "force-dynamic";
+
 export default async function InvestimentosPage() {
   const projects = await getOpportunities();
 
