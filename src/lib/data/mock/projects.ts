@@ -9,12 +9,12 @@ import type { Project } from "@/types";
 export const MOCK_PROJECTS: Project[] = [
   {
     id: "ms-tower",
-    name: "MS Tower",
+    name: "MS Tower Village",
     slug: "ms-tower",
     description:
-      "MS Tower é um empreendimento corporativo e residencial de alto padrão, projetado para unir localização estratégica, arquitetura contemporânea e gestão profissional de longo prazo. O projeto contempla torres mistas com unidades residenciais, lajes corporativas e área de conveniência integrada, pensado para gerar valor sustentável ao longo do ciclo de desenvolvimento imobiliário.",
+      "MS Tower Village é um empreendimento residencial de alto padrão, projetado para unir localização estratégica, arquitetura contemporânea e gestão profissional de longo prazo. O projeto contempla torres residenciais com área de conveniência integrada, pensado para gerar valor sustentável ao longo do ciclo de desenvolvimento imobiliário.",
     shortDescription:
-      "Empreendimento multiuso de alto padrão em localização estratégica, com gestão profissional de longo prazo.",
+      "Empreendimento residencial de alto padrão em localização estratégica, com gestão profissional de longo prazo.",
     location: "Orla da Baía Sul",
     city: "Florianópolis",
     state: "SC",
@@ -31,10 +31,19 @@ export const MOCK_PROJECTS: Project[] = [
     expectedDelivery: "4º trimestre de 2028 (previsão)",
     totalArea: "18.500 m²",
     availableUnits: 42,
-    investmentMinimum: 25000,
+    investmentMinimum: 9000,
     investmentType: "equity",
     targetReturn: "Projeção — não constitui garantia de rentabilidade",
-    projectedReturn: "Simulação disponível na plataforma parceira",
+    projectedReturn:
+      "De R$ 9.000/m² (captação) a R$ 25.000/m² na venda — projeção por fase, sem garantia",
+    pricePerSqm: 9000,
+    valuationPhases: [
+      { phase: "Captação", pricePerSqm: 9000 },
+      { phase: "Lançamento", pricePerSqm: 12000 },
+      { phase: "Início das obras", pricePerSqm: 15000 },
+      { phase: "Meio das obras", pricePerSqm: 18000 },
+      { phase: "Venda dos imóveis", pricePerSqm: 25000 },
+    ],
     constructionProgress: 32,
     featured: true,
     isDemo: true,
@@ -73,7 +82,7 @@ export const MOCK_PROJECTS: Project[] = [
 export const MOCK_PROJECT_DOCUMENTS = [
   {
     id: "doc-mst-1",
-    title: "Apresentação institucional — MS Tower",
+    title: "Apresentação institucional — MS Tower Village",
     category: "informacoes" as const,
     projectId: "ms-tower",
     fileUrl: "#",

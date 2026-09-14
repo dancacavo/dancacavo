@@ -6,7 +6,24 @@ import { Button } from "@/components/ui/Button";
 import { DemoModeNotice } from "@/components/domain/DemoModeNotice";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { createProject, updateProject, type ProjectInput } from "@/lib/data/projects";
-import type { Project, ProjectStatus, InvestmentType } from "@/types";
+import type { Project, ProjectStatus, InvestmentType, ValuationPhase } from "@/types";
+
+/** "Captação: 9000\nLançamento: 12000" ⇄ ValuationPhase[] */
+function parseValuationPhases(text: string): ValuationPhase[] {
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [phase, price] = line.split(":").map((s) => s.trim());
+      return { phase, pricePerSqm: Number(price.replace(/[^\d.]/g, "")) || 0 };
+    })
+    .filter((p) => p.phase);
+}
+
+function formatValuationPhases(phases?: ValuationPhase[]): string {
+  return (phases ?? []).map((p) => `${p.phase}: ${p.pricePerSqm}`).join("\n");
+}
 
 const STATUS_OPTIONS: { value: ProjectStatus; label: string }[] = [
   { value: "em_breve", label: "Em breve" },
@@ -65,6 +82,8 @@ export function ProjectForm({ project }: { project?: Project }) {
     investmentType: project?.investmentType ?? "equity",
     targetReturn: project?.targetReturn ?? "",
     projectedReturn: project?.projectedReturn ?? "",
+    pricePerSqm: project?.pricePerSqm?.toString() ?? "",
+    valuationPhases: formatValuationPhases(project?.valuationPhases),
     constructionProgress: project?.constructionProgress?.toString() ?? "0",
     featured: project?.featured ?? false,
     investmentUrl: project?.investmentUrl ?? "",
@@ -101,6 +120,10 @@ export function ProjectForm({ project }: { project?: Project }) {
         investmentType: form.investmentType,
         targetReturn: form.targetReturn || undefined,
         projectedReturn: form.projectedReturn || undefined,
+        pricePerSqm: form.pricePerSqm ? Number(form.pricePerSqm) : undefined,
+        valuationPhases: form.valuationPhases
+          ? parseValuationPhases(form.valuationPhases)
+          : undefined,
         constructionProgress: Number(form.constructionProgress) || 0,
         featured: form.featured,
         investmentUrl: form.investmentUrl || undefined,
@@ -204,6 +227,22 @@ export function ProjectForm({ project }: { project?: Project }) {
         </Field>
         <Field label="Retorno projetado (texto)">
           <input className={inputClass} value={form.projectedReturn} onChange={(e) => set("projectedReturn", e.target.value)} disabled={isDemoMode} />
+        </Field>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-2">
+        <Field label="Preço da cota por m² (R$) — fase de captação">
+          <input type="number" className={inputClass} value={form.pricePerSqm} onChange={(e) => set("pricePerSqm", e.target.value)} placeholder="9000" disabled={isDemoMode} />
+        </Field>
+        <Field label="Valorização projetada por fase (uma por linha: Fase: Preço)">
+          <textarea
+            rows={5}
+            className={textareaClass}
+            value={form.valuationPhases}
+            onChange={(e) => set("valuationPhases", e.target.value)}
+            placeholder={"Captação: 9000\nLançamento: 12000\nInício das obras: 15000\nMeio das obras: 18000\nVenda dos imóveis: 25000"}
+            disabled={isDemoMode}
+          />
         </Field>
       </section>
 

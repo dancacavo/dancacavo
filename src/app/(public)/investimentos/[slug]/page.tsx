@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MapPin, Building2, CalendarDays, Layers } from "lucide-react";
-import { ProjectStatusBadge, DemoBadge } from "@/components/ui/StatusBadge";
+import { ProjectStatusBadge, AvailabilityBadge } from "@/components/ui/StatusBadge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { MetricCard } from "@/components/domain/MetricCard";
+import { ValuationTimeline } from "@/components/domain/ValuationTimeline";
 import { DocumentCard } from "@/components/domain/DocumentCard";
 import { InvestButton } from "@/components/domain/InvestButton";
 import { EmptyState } from "@/components/ui/States";
@@ -65,8 +66,11 @@ export default async function ProjectPage({
         </div>
         <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-36">
           <div className="flex flex-wrap items-center gap-2">
-            <ProjectStatusBadge status={project.status} />
-            {project.isDemo && <DemoBadge />}
+            {project.status === "captacao" ? (
+              <AvailabilityBadge />
+            ) : (
+              <ProjectStatusBadge status={project.status} solid />
+            )}
           </div>
           <h1 className="mt-5 max-w-2xl font-display text-4xl leading-tight sm:text-5xl">
             {project.name}
@@ -164,7 +168,11 @@ export default async function ProjectPage({
         </span>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard label="Área total" value={project.totalArea} />
-          <MetricCard label="Mínimo de investimento" value={formatCurrency(project.investmentMinimum)} />
+          <MetricCard
+            label="Preço da cota"
+            value={`${formatCurrency(project.pricePerSqm ?? project.investmentMinimum)}/m²`}
+            hint="Preço atual — fase de captação"
+          />
           <MetricCard
             label="Retorno projetado"
             value={project.projectedReturn ?? "—"}
@@ -177,6 +185,22 @@ export default async function ProjectPage({
         <div className="mt-10 rounded-2xl border border-ms-black/[0.06] p-6">
           <ProgressBar value={project.constructionProgress} label="Progresso da obra" />
         </div>
+
+        {/* VALORIZAÇÃO POR FASE */}
+        {project.valuationPhases && project.valuationPhases.length > 0 && (
+          <div className="mt-10">
+            <h3 className="font-display text-lg text-ms-black">
+              Valorização projetada da cota, por fase
+            </h3>
+            <p className="mt-1 text-sm text-ms-gray-500">
+              Simulação com base no plano de negócios do empreendimento — não
+              constitui garantia de rentabilidade.
+            </p>
+            <div className="mt-5">
+              <ValuationTimeline phases={project.valuationPhases} />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* GALERIA */}

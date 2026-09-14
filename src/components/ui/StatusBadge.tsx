@@ -36,12 +36,22 @@ function toneForInvestment(status: InvestmentStatus) {
   return "neutral";
 }
 
-export function ProjectStatusBadge({ status }: { status: ProjectStatus }) {
+export function ProjectStatusBadge({
+  status,
+  solid,
+}: {
+  status: ProjectStatus;
+  /** Fundo sólido em vez de tingido — usar sobre fotos, onde o tom
+   * translúcido perde contraste. */
+  solid?: boolean;
+}) {
   return (
     <span
       className={cn(
         "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium tracking-wide",
-        TONE[toneForProject(status)]
+        solid
+          ? "bg-white text-ms-black shadow-sm"
+          : TONE[toneForProject(status)]
       )}
     >
       {PROJECT_LABELS[status]}
@@ -71,6 +81,31 @@ export function DemoBadge({ className }: { className?: string }) {
       )}
     >
       Demonstração
+    </span>
+  );
+}
+
+/**
+ * Indicador de disponibilidade — bolinha verde piscando lentamente,
+ * sinalizando que a captação está aberta. Usar apenas quando o
+ * empreendimento está de fato em captação.
+ */
+export function AvailabilityBadge({
+  label = "Em captação",
+  className,
+}: {
+  label?: string;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ms-black shadow-sm",
+        className
+      )}
+    >
+      <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-blink-slow" />
+      {label}
     </span>
   );
 }

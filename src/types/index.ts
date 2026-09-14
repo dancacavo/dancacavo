@@ -37,6 +37,16 @@ export interface ProjectDocumentRef {
   updatedAt: string;
 }
 
+/**
+ * Um ponto da curva de valorização projetada da cota (por m²) ao longo
+ * das fases do empreendimento. É sempre uma projeção/simulação — nunca
+ * uma promessa de rentabilidade (ver LegalDisclaimer).
+ */
+export interface ValuationPhase {
+  phase: string; // ex: "Lançamento", "Início das obras"
+  pricePerSqm: number;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -57,6 +67,8 @@ export interface Project {
   investmentType: InvestmentType;
   targetReturn?: string; // ex: "16% a.a. (projeção)"
   projectedReturn?: string;
+  pricePerSqm?: number; // preço atual da cota por m² (fase de captação)
+  valuationPhases?: ValuationPhase[]; // projeção de valorização por fase — simulação, sem garantia
   constructionProgress: number; // 0-100
   featured: boolean;
   highlights?: { title: string; description: string }[];

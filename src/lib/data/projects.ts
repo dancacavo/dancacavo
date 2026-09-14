@@ -37,6 +37,8 @@ function mapProject(id: string, data: Record<string, unknown>): Project {
     investmentType: (data.investmentType as Project["investmentType"]) ?? "equity",
     targetReturn: data.targetReturn as string | undefined,
     projectedReturn: data.projectedReturn as string | undefined,
+    pricePerSqm: data.pricePerSqm as number | undefined,
+    valuationPhases: data.valuationPhases as Project["valuationPhases"],
     constructionProgress: (data.constructionProgress as number) ?? 0,
     featured: Boolean(data.featured),
     highlights: data.highlights as Project["highlights"],

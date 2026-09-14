@@ -1,33 +1,34 @@
 import { cn } from "@/lib/utils/cn";
 
 /**
- * Símbolo MS Investor: um "V" sólido em duas facetas, com um corte fino
- * no centro (efeito de joia/precisão). Reduzido a duas formas para ficar
- * legível em qualquer tamanho — inspirado no "V" do Grupo Marques
- * Silveira, mas simplificado para uso como ícone de app/navbar.
+ * Monograma MS Investor: um traço único e contínuo que começa como um
+ * "M" geométrico e se transforma em um "S" fluido — as duas letras
+ * fundidas num só símbolo, exclusivo da plataforma (distinto do símbolo
+ * "V" do Grupo Marques Silveira).
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 32 30"
-      className={cn("h-6 w-6", className)}
+      viewBox="-2 -2 46 38"
+      className={cn("h-7 w-7", className)}
       role="img"
-      aria-label="Símbolo MS Investor"
+      aria-label="Monograma MS Investor"
     >
       <defs>
-        <linearGradient id="msGoldMark" x1="0" y1="0" x2="0.3" y2="1">
+        <linearGradient id="msMonogram" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#D9BA7A" />
-          <stop offset="100%" stopColor="#8A6D1F" />
-        </linearGradient>
-        <linearGradient id="msGoldMarkDark" x1="0" y1="0" x2="0.3" y2="1">
-          <stop offset="0%" stopColor="#C9A968" />
-          <stop offset="100%" stopColor="#6E5827" />
+          <stop offset="55%" stopColor="#B8902E" />
+          <stop offset="100%" stopColor="#7C6230" />
         </linearGradient>
       </defs>
-      {/* faceta esquerda */}
-      <polygon points="1,1 11,1 16.2,27.5 14.2,27.5" fill="url(#msGoldMark)" />
-      {/* faceta direita, ligeiramente mais escura para dar volume */}
-      <polygon points="31,1 21,1 15.8,27.5 17.8,27.5" fill="url(#msGoldMarkDark)" />
+      <path
+        d="M4 30 L4 6 L13 20 L22 6 C34 6 12 16 26 18 C40 20 14 30 28 30"
+        fill="none"
+        stroke="url(#msMonogram)"
+        strokeWidth="4.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

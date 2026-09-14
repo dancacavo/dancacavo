@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { CardHover } from "@/components/ui/Card";
-import { ProjectStatusBadge, DemoBadge } from "@/components/ui/StatusBadge";
+import { ProjectStatusBadge, AvailabilityBadge } from "@/components/ui/StatusBadge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { formatCurrency } from "@/lib/utils/format";
 import type { Project } from "@/types";
@@ -20,8 +20,11 @@ export function ProjectCard({ project }: { project: Project }) {
             sizes="(min-width: 1024px) 380px, 100vw"
           />
           <div className="absolute left-4 top-4 flex gap-2">
-            <ProjectStatusBadge status={project.status} />
-            {project.isDemo && <DemoBadge />}
+            {project.status === "captacao" ? (
+              <AvailabilityBadge />
+            ) : (
+              <ProjectStatusBadge status={project.status} solid />
+            )}
           </div>
         </div>
         <div className="p-6">
@@ -41,7 +44,8 @@ export function ProjectCard({ project }: { project: Project }) {
           <div className="mt-5 flex items-center justify-between border-t border-ms-black/[0.06] pt-4 text-sm">
             <span className="text-ms-gray-500">A partir de</span>
             <span className="font-medium text-ms-black">
-              {formatCurrency(project.investmentMinimum)}
+              {formatCurrency(project.pricePerSqm ?? project.investmentMinimum)}
+              {project.pricePerSqm ? <span className="text-ms-gray-500">/m²</span> : null}
             </span>
           </div>
         </div>
