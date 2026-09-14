@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -44,15 +45,24 @@ function mapProject(id: string, data: Record<string, unknown>): Project {
     highlights: data.highlights as Project["highlights"],
     isDemo: Boolean(data.isDemo),
     investmentUrl: data.investmentUrl as string | undefined,
+    // dados antigos (sem os campos abaixo) são tratados como
+    // ativos/publicados, para não sumirem do site ao migrar o schema.
+    active: data.active === undefined ? true : Boolean(data.active),
+    showInOpportunities:
+      data.showInOpportunities === undefined ? true : Boolean(data.showInOpportunities),
+    opportunityOrder: (data.opportunityOrder as number) ?? 0,
+    ctaText: data.ctaText as string | undefined,
+    additionalInfo: data.additionalInfo as string | undefined,
     createdAt: toIso(data.createdAt),
     updatedAt: toIso(data.updatedAt),
   };
 }
 
 /**
- * Lista empreendimentos. Usa Firestore quando configurado e populado;
- * caso contrário, retorna os dados de DEMONSTRAÇÃO para que a interface
- * nunca fique vazia enquanto o backend não está pronto.
+ * Lista TODOS os empreendimentos (ativos ou não), para uso administrativo.
+ * Usa Firestore quando configurado e populado; caso contrário, retorna os
+ * dados de DEMONSTRAÇÃO para que a interface nunca fique vazia enquanto o
+ * backend não está pronto.
  */
 export async function getProjects(): Promise<Project[]> {
   const db = getFirebaseDb();
@@ -69,30 +79,56 @@ export async function getProjects(): Promise<Project[]> {
   }
 }
 
-export async function getFeaturedProjects(): Promise<Project[]> {
+/** Empreendimentos visíveis publicamente (interruptor "ativo" ligado). */
+export async function getPublicProjects(): Promise<Project[]> {
   const projects = await getProjects();
-  const featured = projects.filter((p) => p.featured);
-  return featured.length ? featured : projects.slice(0, 3);
+  return projects.filter((p) => p.active !== false);
 }
 
+/**
+ * Empreendimentos que aparecem na aba "Oportunidades" (e nos destaques da
+ * home): precisam estar ativos E marcados para aparecer em oportunidades.
+ * Ordenados pelo campo `opportunityOrder` definido no admin.
+ */
+export async function getOpportunities(): Promise<Project[]> {
+  const projects = await getPublicProjects();
+  return projects
+    .filter((p) => p.showInOpportunities !== false)
+    .sort((a, b) => (a.opportunityOrder ?? 0) - (b.opportunityOrder ?? 0));
+}
+
+export async function getFeaturedProjects(): Promise<Project[]> {
+  const opportunities = await getOpportunities();
+  const featured = opportunities.filter((p) => p.featured);
+  return featured.length ? featured : opportunities.slice(0, 3);
+}
+
+/** Busca por slug para as páginas PÚBLICAS — só retorna empreendimentos ativos. */
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   const db = getFirebaseDb();
-  if (!db) return MOCK_PROJECTS.find((p) => p.slug === slug) ?? null;
+  if (!db) {
+    const p = MOCK_PROJECTS.find((p) => p.slug === slug) ?? null;
+    return p && p.active !== false ? p : null;
+  }
 
   try {
     const snapshot = await getDocs(
       query(collection(db, "projects"), where("slug", "==", slug))
     );
     if (snapshot.empty) {
-      return MOCK_PROJECTS.find((p) => p.slug === slug) ?? null;
+      const p = MOCK_PROJECTS.find((p) => p.slug === slug) ?? null;
+      return p && p.active !== false ? p : null;
     }
     const d = snapshot.docs[0];
-    return mapProject(d.id, d.data());
+    const project = mapProject(d.id, d.data());
+    return project.active !== false ? project : null;
   } catch {
-    return MOCK_PROJECTS.find((p) => p.slug === slug) ?? null;
+    const p = MOCK_PROJECTS.find((p) => p.slug === slug) ?? null;
+    return p && p.active !== false ? p : null;
   }
 }
 
+/** [ADMIN] Busca por id sem filtro de visibilidade — usado para editar/pré-visualizar. */
 export async function getProjectById(id: string): Promise<Project | null> {
   const db = getFirebaseDb();
   if (!db) return MOCK_PROJECTS.find((p) => p.id === id) ?? null;
@@ -139,4 +175,26 @@ export async function updateProjectProgress(id: string, progress: number) {
     constructionProgress: progress,
     updatedAt: serverTimestamp(),
   });
+}
+
+/** [ADMIN] Ativa/desativa (interruptor geral de visibilidade pública). */
+export async function setProjectActive(id: string, active: boolean) {
+  await updateProject(id, { active });
+}
+
+/** [ADMIN] Mostra/remove o card da aba "Oportunidades" sem apagar o empreendimento. */
+export async function setProjectShowInOpportunities(id: string, show: boolean) {
+  await updateProject(id, { showInOpportunities: show });
+}
+
+/** [ADMIN] Define a ordem de exibição do card na aba "Oportunidades". */
+export async function setProjectOpportunityOrder(id: string, order: number) {
+  await updateProject(id, { opportunityOrder: order });
+}
+
+/** [ADMIN] Exclui definitivamente um empreendimento. */
+export async function deleteProject(id: string) {
+  const db = getFirebaseDb();
+  if (!db) throw new Error("Firebase não configurado — não é possível gravar dados.");
+  await deleteDoc(doc(db, "projects", id));
 }

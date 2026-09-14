@@ -5,7 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutGrid,
   Building2,
+  Star,
   Users,
+  Settings,
   TrendingUp,
   FileText,
   Megaphone,
@@ -15,10 +17,18 @@ import { Logo } from "./Logo";
 import { cn } from "@/lib/utils/cn";
 import { useAuth } from "@/lib/auth/AuthProvider";
 
+// Estrutura principal do painel administrativo.
 const ITEMS = [
-  { href: "/admin", label: "Visão geral", icon: LayoutGrid },
+  { href: "/admin", label: "Dashboard", icon: LayoutGrid },
   { href: "/admin/empreendimentos", label: "Empreendimentos", icon: Building2 },
-  { href: "/admin/investidores", label: "Investidores", icon: Users },
+  { href: "/admin/oportunidades", label: "Oportunidades", icon: Star },
+  { href: "/admin/usuarios", label: "Usuários", icon: Users },
+  { href: "/admin/configuracoes", label: "Configurações", icon: Settings },
+];
+
+// Áreas complementares (já existentes) — mantidas para não remover
+// funcionalidades, agrupadas separadamente da IA principal solicitada.
+const SECONDARY_ITEMS = [
   { href: "/admin/investimentos", label: "Investimentos", icon: TrendingUp },
   { href: "/admin/documentos", label: "Documentos", icon: FileText },
   { href: "/admin/comunicados", label: "Comunicados", icon: Megaphone },
@@ -41,6 +51,27 @@ export function AdminSidebar() {
         {ITEMS.map((item) => {
           const active =
             item.href === "/admin" ? pathname === "/admin" : pathname.startsWith(item.href);
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors",
+                active ? "bg-white text-ms-black" : "text-white/70 hover:bg-white/10"
+              )}
+            >
+              <Icon size={18} />
+              {item.label}
+            </Link>
+          );
+        })}
+
+        <span className="mb-1 mt-6 px-3 text-[11px] font-semibold uppercase tracking-wider text-white/30">
+          Outras áreas
+        </span>
+        {SECONDARY_ITEMS.map((item) => {
+          const active = pathname.startsWith(item.href);
           const Icon = item.icon;
           return (
             <Link

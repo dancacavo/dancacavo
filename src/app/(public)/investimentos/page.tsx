@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/domain/ProjectCard";
 import { EmptyState } from "@/components/ui/States";
-import { getProjects } from "@/lib/data/projects";
+import { getOpportunities } from "@/lib/data/projects";
 
 export const metadata: Metadata = {
   title: "Investimentos",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function InvestimentosPage() {
-  const projects = await getProjects();
+  const projects = await getOpportunities();
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">

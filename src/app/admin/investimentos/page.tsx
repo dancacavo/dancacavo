@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { InvestmentStatusBadge } from "@/components/ui/StatusBadge";
@@ -65,7 +66,14 @@ export default function AdminInvestmentsPage() {
                   <div>
                     <p className="font-medium text-ms-black">{project?.name ?? inv.projectId}</p>
                     <p className="text-sm text-ms-gray-500">
-                      {investor?.name ?? inv.userId} · {formatCurrency(inv.amount)} · {formatDate(inv.investedAt)}
+                      {investor ? (
+                        <Link href={`/admin/usuarios/${investor.id}`} className="underline decoration-dotted hover:text-ms-black">
+                          {investor.name}
+                        </Link>
+                      ) : (
+                        inv.userId
+                      )}{" "}
+                      · {formatCurrency(inv.amount)} · {formatDate(inv.investedAt)}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">

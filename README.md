@@ -117,7 +117,11 @@ src/
                         /sobre, /contato, /privacidade, /termos
     (auth)/             /login, /cadastro, /recuperar-senha
     dashboard/          área privada do investidor (guarded)
-    admin/              painel administrativo (guarded, role=admin)
+    admin/              painel administrativo (guarded, role=admin):
+                        dashboard, empreendimentos (+ novo/[id]/preview),
+                        oportunidades, usuarios (+ [id]), configuracoes,
+                        investimentos, documentos, comunicados
+                        (investidores/ redireciona para usuarios/)
     sitemap.ts, robots.ts
   components/
     ui/                 Button, Card, Modal, StatusBadge, ProgressBar,
@@ -163,6 +167,55 @@ Coleções: `users`, `projects`, `investments`, `documents`,
 `notifications`, `announcements` — shapes completos em `src/types/index.ts`.
 Índices compostos necessários já estão em `firestore.indexes.json`.
 
+Nenhuma coleção nova foi criada para o painel administrativo: os controles
+de publicação (`active`, `showInOpportunities`, `opportunityOrder`,
+`ctaText`, `additionalInfo`) foram adicionados como campos opcionais do
+próprio documento em `projects`, e o status de conta (`status`,
+`lastLoginAt`, `cpf`, `birthDate` — os dois últimos só exibidos se já
+existirem) como campos opcionais em `users`. Isso evita duplicar dados
+entre "empreendimento" e "oportunidade" — a aba Oportunidades do admin é
+uma visão filtrada/reordenada da mesma coleção `projects`, nunca uma cópia.
+
+## Painel administrativo (`/admin`)
+
+Menu principal: **Dashboard, Empreendimentos, Oportunidades, Usuários,
+Configurações** (+ uma seção "Outras áreas" com Investimentos, Documentos
+e Comunicados, já existentes antes desta implementação).
+
+- **Empreendimentos** — CRUD completo (`ProjectForm`), com prévia
+  (`/admin/empreendimentos/[id]/preview`, reaproveitando o mesmo componente
+  visual `ProjectDetailView` da página pública) e ativar/desativar/excluir
+  na listagem.
+- **Oportunidades** — controla especificamente o que aparece na aba
+  pública "Oportunidades" e nos destaques da home: publicar/despublicar
+  (`showInOpportunities`), ordem de exibição (setas para cima/baixo) e
+  destaque (`featured`). "Remover da vitrine" apenas desmarca o
+  empreendimento — nunca o exclui.
+- **Usuários** — lista com busca (nome/e-mail) e filtros (status, data de
+  cadastro); página de detalhe por usuário com dados pessoais, perfil
+  (status da conta, último acesso), investimentos vinculados e ações de
+  administrador (promover/remover admin, ativar/desativar/bloquear conta).
+- **Configurações** — conta do administrador logado, lista de
+  administradores e explicação de como funciona a autorização.
+
+## Autenticação e perfil
+
+Firebase Authentication: e-mail/senha, Google, recuperação de senha,
+logout e proteção de rotas privadas (`RequireAuth`, client-side + reforçado
+pelas Security Rules no servidor). No primeiro login, um documento
+`users/{uid}` é criado com `role: "investor"` e `status: "ativo"` — o papel
+`admin` só pode ser atribuído por outro administrador já existente (pela
+página de detalhe do usuário em `/admin/usuarios/[id]`) ou, para o
+primeiro admin, manualmente no Firestore. A cada login, `lastLoginAt` é
+gravado em segundo plano (melhor esforço, não bloqueia a navegação).
+
+Dados coletados no cadastro: nome, e-mail, telefone (opcional). Nenhum CPF,
+data de nascimento ou endereço é coletado, seguindo o princípio de
+minimização de dados — os campos existem no tipo `UserProfile` (para
+exibição condicional no admin, "somente se já fizerem parte do cadastro")
+mas nada é inventado nem coletado até que o formulário de cadastro seja
+estendido.
+
 ## Autenticação
 
 Firebase Authentication: e-mail/senha, Google, recuperação de senha,
@@ -181,9 +234,15 @@ SONICA/regulatório exigir.
 
 - Um investidor só lê seu próprio perfil, seus próprios investimentos,
   documentos endereçados a ele (ou públicos) e suas próprias notificações.
-- `role` do usuário nunca pode ser alterado por ele mesmo (só por admin).
+- `role` e `status` do usuário nunca podem ser alterados por ele mesmo — a
+  regra restringe a escrita do próprio usuário a um conjunto explícito de
+  campos (`name`, `phone`, `photoUrl`, `lastLoginAt`); qualquer outra
+  alteração (incluindo `role`/`status`) exige `isAdmin()`. Isso impede, por
+  exemplo, que uma conta bloqueada se desbloqueie sozinha por uma
+  requisição direta ao Firestore, contornando a interface.
 - `projects` e `announcements` são de leitura pública, escrita restrita a
-  admin.
+  admin. Os campos de publicação (`active`, `showInOpportunities` etc.)
+  seguem a mesma regra — só admin escreve.
 - `investments` só são criados/editados por admin (o registro real de
   investimento vem da SONICA; a plataforma MS apenas o reflete).
 - Ver `firestore.rules` e `storage.rules` para o detalhamento comentado.
@@ -244,7 +303,9 @@ Nenhum dado financeiro sensível é enviado como parâmetro.
 2. Popular a coleção `projects` com o(s) empreendimento(s) reais
    (substituindo os dados de demonstração do MS Tower).
 3. Definir manualmente `role: "admin"` no documento do primeiro usuário
-   administrador (via Firebase Console ou Admin SDK).
+   administrador (via Firebase Console ou Admin SDK) — depois disso, novos
+   administradores podem ser promovidos direto pelo painel, em
+   `/admin/usuarios/[id]`.
 4. Integrar o formulário de contato a um serviço real de e-mail/CRM.
 5. Conectar o cadastro de investimentos a um webhook/Cloud Function que
    receba confirmações da SONICA e grave em `investments` automaticamente

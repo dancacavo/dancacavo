@@ -20,7 +20,11 @@ function mapUser(id: string, data: Record<string, unknown>): UserProfile {
     email: (data.email as string) ?? "",
     phone: data.phone as string | undefined,
     role: (data.role as UserProfile["role"]) ?? "investor",
+    status: (data.status as UserProfile["status"]) ?? "ativo",
     photoUrl: data.photoUrl as string | undefined,
+    birthDate: data.birthDate as string | undefined,
+    cpf: data.cpf as string | undefined,
+    lastLoginAt: data.lastLoginAt ? toIso(data.lastLoginAt) : undefined,
     createdAt: toIso(data.createdAt),
     updatedAt: toIso(data.updatedAt),
   };
@@ -43,6 +47,7 @@ export async function ensureUserProfile(params: {
     email: params.email,
     phone: params.phone ?? null,
     role: "investor",
+    status: "ativo",
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -60,6 +65,9 @@ export async function getUserProfile(uid: string): Promise<UserProfile | null> {
   }
 }
 
+/** [ADMIN] Alias semântico de getUserProfile para uso no painel administrativo. */
+export const getUserById = getUserProfile;
+
 export async function updateUserProfile(
   uid: string,
   data: Partial<Pick<UserProfile, "name" | "phone" | "photoUrl">>
@@ -69,17 +77,51 @@ export async function updateUserProfile(
   await updateDoc(doc(db, "users", uid), { ...data, updatedAt: serverTimestamp() });
 }
 
-export async function getAllInvestors(): Promise<UserProfile[]> {
+/**
+ * Registra o último acesso (melhor esforço, não bloqueante). Só altera o
+ * campo `lastLoginAt` — as Firestore Security Rules permitem que o próprio
+ * usuário grave esse campo, mas nunca `role` ou `status`.
+ */
+export async function recordLogin(uid: string) {
+  const db = getFirebaseDb();
+  if (!db) return;
+  try {
+    await updateDoc(doc(db, "users", uid), { lastLoginAt: serverTimestamp() });
+  } catch {
+    // melhor esforço — não deve travar o login do usuário
+  }
+}
+
+/** [ADMIN] Todos os usuários cadastrados (investidores e administradores). */
+export async function getAllUsers(): Promise<UserProfile[]> {
   const db = getFirebaseDb();
   if (!db) return [];
   try {
     const snapshot = await getDocs(
       query(collection(db, "users"), orderBy("createdAt", "desc"))
     );
-    return snapshot.docs
-      .map((d) => mapUser(d.id, d.data()))
-      .filter((u) => u.role === "investor");
+    return snapshot.docs.map((d) => mapUser(d.id, d.data()));
   } catch {
     return [];
   }
+}
+
+/** Somente usuários com papel "investor" (uso legado — listagens antigas). */
+export async function getAllInvestors(): Promise<UserProfile[]> {
+  const users = await getAllUsers();
+  return users.filter((u) => u.role === "investor");
+}
+
+/** [ADMIN] Promove/rebaixa um usuário entre "investor" e "admin". */
+export async function updateUserRole(uid: string, role: UserProfile["role"]) {
+  const db = getFirebaseDb();
+  if (!db) throw new Error("Firebase não configurado — não é possível gravar dados.");
+  await updateDoc(doc(db, "users", uid), { role, updatedAt: serverTimestamp() });
+}
+
+/** [ADMIN] Ativa, desativa ou bloqueia a conta de um usuário. */
+export async function updateUserStatus(uid: string, status: UserProfile["status"]) {
+  const db = getFirebaseDb();
+  if (!db) throw new Error("Firebase não configurado — não é possível gravar dados.");
+  await updateDoc(doc(db, "users", uid), { status, updatedAt: serverTimestamp() });
 }

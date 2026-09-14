@@ -87,6 +87,11 @@ export function ProjectForm({ project }: { project?: Project }) {
     constructionProgress: project?.constructionProgress?.toString() ?? "0",
     featured: project?.featured ?? false,
     investmentUrl: project?.investmentUrl ?? "",
+    active: project?.active ?? true,
+    showInOpportunities: project?.showInOpportunities ?? true,
+    opportunityOrder: project?.opportunityOrder?.toString() ?? "0",
+    ctaText: project?.ctaText ?? "",
+    additionalInfo: project?.additionalInfo ?? "",
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -127,6 +132,11 @@ export function ProjectForm({ project }: { project?: Project }) {
         constructionProgress: Number(form.constructionProgress) || 0,
         featured: form.featured,
         investmentUrl: form.investmentUrl || undefined,
+        active: form.active,
+        showInOpportunities: form.showInOpportunities,
+        opportunityOrder: Number(form.opportunityOrder) || 0,
+        ctaText: form.ctaText || undefined,
+        additionalInfo: form.additionalInfo || undefined,
       };
 
       if (isEditing && project) {
@@ -250,18 +260,55 @@ export function ProjectForm({ project }: { project?: Project }) {
         <Field label="Link de investimento (SONICA) — opcional, sobrepõe o padrão">
           <input className={inputClass} value={form.investmentUrl} onChange={(e) => set("investmentUrl", e.target.value)} placeholder="https://sonica.example.com/..." disabled={isDemoMode} />
         </Field>
-        <label className="flex items-center gap-2.5 pt-6 text-sm text-ms-black">
-          <input type="checkbox" checked={form.featured} onChange={(e) => set("featured", e.target.checked)} disabled={isDemoMode} className="h-4 w-4 rounded border-ms-black/20" />
-          Destacar na página inicial
-        </label>
+        <Field label="Texto de chamada (CTA) — opcional, sobrepõe o padrão">
+          <input className={inputClass} value={form.ctaText} onChange={(e) => set("ctaText", e.target.value)} placeholder={`INVESTIR NO ${(form.name || "EMPREENDIMENTO").toUpperCase()}`} disabled={isDemoMode} />
+        </Field>
+      </section>
+
+      <section>
+        <Field label="Informações adicionais (texto livre, opcional)">
+          <textarea rows={3} className={textareaClass} value={form.additionalInfo} onChange={(e) => set("additionalInfo", e.target.value)} disabled={isDemoMode} />
+        </Field>
+      </section>
+
+      {/* PUBLICAÇÃO — controla visibilidade pública e presença na aba Oportunidades */}
+      <section className="space-y-4 rounded-2xl border border-ms-black/10 bg-ms-gray-100/40 p-5">
+        <p className="text-xs font-semibold uppercase tracking-wider text-ms-gray-500">Publicação</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="flex items-center gap-2.5 text-sm text-ms-black">
+            <input type="checkbox" checked={form.active} onChange={(e) => set("active", e.target.checked)} disabled={isDemoMode} className="h-4 w-4 rounded border-ms-black/20" />
+            Ativo (visível no site)
+          </label>
+          <label className="flex items-center gap-2.5 text-sm text-ms-black">
+            <input type="checkbox" checked={form.showInOpportunities} onChange={(e) => set("showInOpportunities", e.target.checked)} disabled={isDemoMode} className="h-4 w-4 rounded border-ms-black/20" />
+            Mostrar na aba &quot;Oportunidades&quot;
+          </label>
+          <label className="flex items-center gap-2.5 text-sm text-ms-black">
+            <input type="checkbox" checked={form.featured} onChange={(e) => set("featured", e.target.checked)} disabled={isDemoMode} className="h-4 w-4 rounded border-ms-black/20" />
+            Destacar na página inicial
+          </label>
+          <Field label="Ordem de exibição (menor aparece primeiro)">
+            <input type="number" className={inputClass} value={form.opportunityOrder} onChange={(e) => set("opportunityOrder", e.target.value)} disabled={isDemoMode} />
+          </Field>
+        </div>
+        {!form.active && (
+          <p className="text-xs text-amber-700">
+            Empreendimento inativo: fica invisível no site (listagem e página de detalhe), mas continua editável aqui.
+          </p>
+        )}
       </section>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <Button type="submit" disabled={saving || isDemoMode}>
           {saving ? "Salvando…" : isEditing ? "Salvar alterações" : "Criar empreendimento"}
         </Button>
+        {isEditing && project && (
+          <Button type="button" variant="outline" href={`/admin/empreendimentos/${project.id}/preview`}>
+            Visualizar prévia
+          </Button>
+        )}
       </div>
     </form>
   );

@@ -9,13 +9,22 @@
 
 export type UserRole = "investor" | "admin";
 
+/** Situação da conta, controlada pelo administrador (nunca pelo próprio usuário). */
+export type UserAccountStatus = "ativo" | "inativo" | "bloqueado";
+
 export interface UserProfile {
   id: string;
   name: string;
   email: string;
   phone?: string;
   role: UserRole;
+  status: UserAccountStatus;
   photoUrl?: string;
+  /** Somente exibidos se já fizerem parte do cadastro existente do usuário. */
+  birthDate?: string;
+  cpf?: string;
+  /** Último acesso conhecido (melhor esforço — registrado no login). */
+  lastLoginAt?: string;
   createdAt: string; // ISO date
   updatedAt: string; // ISO date
 }
@@ -74,6 +83,23 @@ export interface Project {
   highlights?: { title: string; description: string }[];
   isDemo?: boolean; // marca dados de demonstração, sem valor real
   investmentUrl?: string; // override do link Sonica por empreendimento
+
+  // ── Controle administrativo (painel /admin) ─────────────────────────
+  /** Ativar/desativar: interruptor geral de visibilidade pública. Um
+   *  empreendimento inativo some do site (listagem e página de detalhe),
+   *  mas continua editável/visualizável no admin. `undefined` (dados
+   *  antigos) é tratado como ativo. */
+  active?: boolean;
+  /** Controla especificamente se aparece na aba "Oportunidades" (e nos
+   *  destaques da home). Só tem efeito quando `active` também é true. */
+  showInOpportunities?: boolean;
+  /** Ordem de exibição do card na aba "Oportunidades" (menor primeiro). */
+  opportunityOrder?: number;
+  /** Texto de chamada curto para o card/CTA comercial. */
+  ctaText?: string;
+  /** Informações adicionais de texto livre, exibidas quando preenchidas. */
+  additionalInfo?: string;
+
   createdAt: string;
   updatedAt: string;
 }

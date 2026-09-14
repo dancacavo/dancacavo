@@ -20,7 +20,7 @@ import {
   type User,
 } from "firebase/auth";
 import { getFirebaseAuth, isFirebaseConfigured } from "@/lib/firebase/client";
-import { ensureUserProfile, getUserProfile } from "@/lib/data/users";
+import { ensureUserProfile, getUserProfile, recordLogin } from "@/lib/data/users";
 import type { UserProfile } from "@/types";
 
 interface AuthContextValue {
@@ -54,6 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (firebaseUser) {
         const p = await getUserProfile(firebaseUser.uid);
         setProfile(p);
+        recordLogin(firebaseUser.uid); // melhor esforço, não bloqueia a UI
       } else {
         setProfile(null);
       }

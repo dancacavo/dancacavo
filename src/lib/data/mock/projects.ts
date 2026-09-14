@@ -37,6 +37,10 @@ export const MOCK_PROJECTS: Project[] = [
     projectedReturn:
       "De R$ 9.000/m² (captação) a R$ 25.000/m² na venda — projeção por fase, sem garantia",
     pricePerSqm: 9000,
+    active: true,
+    showInOpportunities: true,
+    opportunityOrder: 1,
+    ctaText: "Conheça o MS Tower Village",
     valuationPhases: [
       { phase: "Captação", pricePerSqm: 9000 },
       { phase: "Lançamento", pricePerSqm: 12000 },
