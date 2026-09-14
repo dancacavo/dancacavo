@@ -4,7 +4,7 @@
 
 import { getApps, initializeApp, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
-import { getFirestore, type Firestore } from "firebase/firestore";
+import { initializeFirestore, getFirestore, type Firestore } from "firebase/firestore";
 import { getStorage, type FirebaseStorage } from "firebase/storage";
 import { isSupported, getAnalytics, type Analytics } from "firebase/analytics";
 import { firebaseConfig, isFirebaseConfigured } from "./config";
@@ -35,7 +35,21 @@ export function getFirebaseAuth(): Auth | null {
 export function getFirebaseDb(): Firestore | null {
   const a = getFirebaseApp();
   if (!a) return null;
-  if (!dbInstance) dbInstance = getFirestore(a);
+  if (!dbInstance) {
+    try {
+      // `experimentalAutoDetectLongPolling` evita que o SDK trave tentando
+      // abrir uma conexão em streaming (WebChannel) em ambientes de build/SSR
+      // restritos como o da Vercel — sem isso, chamadas ao Firestore durante
+      // `generateStaticParams`/geração estática podem travar até dar timeout
+      // ("Could not reach Cloud Firestore backend"), derrubando o build.
+      dbInstance = initializeFirestore(a, { experimentalAutoDetectLongPolling: true });
+    } catch {
+      // Já inicializado nesta instância do app (ex.: hot reload em `next
+      // dev`, ou módulo reavaliado em runtime serverless) — reaproveita a
+      // instância existente em vez de quebrar.
+      dbInstance = getFirestore(a);
+    }
+  }
   return dbInstance;
 }
 
