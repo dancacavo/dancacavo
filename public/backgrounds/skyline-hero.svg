@@ -7,7 +7,7 @@
     </linearGradient>
 
     <radialGradient id="glow" cx="72%" cy="38%" r="42%">
-      <stop offset="0%" stop-color="#C9A227" stop-opacity="0.55"/>
+      <stop offset="0%" stop-color="#9C7A3D" stop-opacity="0.55"/>
       <stop offset="55%" stop-color="#4A3A1B" stop-opacity="0.16"/>
       <stop offset="100%" stop-color="#4A3A1B" stop-opacity="0"/>
     </radialGradient>
@@ -43,10 +43,10 @@
     </pattern>
     <pattern id="windowsWarm" width="22" height="30" patternUnits="userSpaceOnUse">
       <rect width="22" height="30" fill="transparent"/>
-      <rect x="3" y="4" width="7" height="10" fill="#E8C97A" opacity="0.10"/>
+      <rect x="3" y="4" width="7" height="10" fill="#C9A968" opacity="0.10"/>
       <rect x="13" y="4" width="7" height="10" fill="#F4F5F3" opacity="0.04"/>
       <rect x="3" y="17" width="7" height="10" fill="#F4F5F3" opacity="0.06"/>
-      <rect x="13" y="17" width="7" height="10" fill="#E8C97A" opacity="0.08"/>
+      <rect x="13" y="17" width="7" height="10" fill="#C9A968" opacity="0.08"/>
     </pattern>
 
     <clipPath id="clipHero">
@@ -89,9 +89,9 @@
     <rect x="1180" y="150" width="260" height="930" fill="url(#windows)"/>
     <!-- coroamento -->
     <path d="M1180 150 L1310 60 L1440 150 Z" fill="#2E2414"/>
-    <rect x="1305" y="18" width="10" height="45" fill="#C9A227" opacity="0.9"/>
-    <circle cx="1310" cy="14" r="5" fill="#C9A227"/>
-    <circle cx="1310" cy="14" r="12" fill="#C9A227" opacity="0.35"/>
+    <rect x="1305" y="18" width="10" height="45" fill="#9C7A3D" opacity="0.9"/>
+    <circle cx="1310" cy="14" r="5" fill="#9C7A3D"/>
+    <circle cx="1310" cy="14" r="12" fill="#9C7A3D" opacity="0.35"/>
     <!-- linhas verticais sutis de vidro -->
     <g stroke="#0B0D0C" stroke-opacity="0.25" clip-path="url(#clipHero)">
       <line x1="1245" y1="150" x2="1245" y2="1080"/>

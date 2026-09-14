@@ -26,6 +26,29 @@ empreendimentos imobiliários.
 O projeto foi criado do zero (o repositório estava vazio) já usando essa
 stack, conforme solicitado.
 
+## Identidade visual
+
+Paleta oficial do Grupo Marques Silveira (cartela Pantone fornecida pelo
+cliente), aplicada em `src/app/globals.css`:
+
+| Token CSS | Pantone | Hex | Uso |
+|---|---|---|---|
+| `--color-ms-black` | 289 U (azul intenso) | `#0B1220` | base escura (fundo/texto principal) |
+| `--color-ms-navy-700` | 288 U (azul 2) | `#13294B` | azul secundário |
+| `--color-ms-gray-500` | 430 U (azul 3) | `#6E7075` | texto secundário |
+| `--color-ms-gray-300` | 427 U (azul 4) | `#C7C6C4` | bordas/divisores |
+| `--color-ms-gold-700` | 457 U (dourado crema) | `#9C7A3D` | destaque principal (dourado) |
+| `--color-ms-gray-100` | 4545 U (crema), clareado | `#ECE7DD` | fundo claro de seção |
+
+`--color-ms-gold-900` (`#7C6230`) e `--color-ms-gold-500` (`#C9A968`) são
+variações mais escura/clara do dourado 457 U, usadas em hover e realces.
+
+O símbolo institucional (`src/components/layout/LogoMark.tsx`) reproduz em
+SVG o "V" de quatro traços dourados em leque do logotipo oficial —
+arquivo de origem em `brand/logo-marques-silveira-oficial.pdf` (fora de
+`public/`, pois é material de referência para design, não um asset
+servido pela aplicação).
+
 ## Modo demonstração
 
 **A aplicação roda imediatamente com `npm run dev`, sem nenhuma

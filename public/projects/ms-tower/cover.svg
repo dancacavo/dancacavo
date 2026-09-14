@@ -6,7 +6,7 @@
       <stop offset="100%" stop-color="#4A3A1B"/>
     </linearGradient>
     <radialGradient id="dusk" cx="68%" cy="15%" r="55%">
-      <stop offset="0%" stop-color="#C9A227" stop-opacity="0.55"/>
+      <stop offset="0%" stop-color="#9C7A3D" stop-opacity="0.55"/>
       <stop offset="60%" stop-color="#4A3A1B" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#4A3A1B" stop-opacity="0"/>
     </radialGradient>
@@ -26,7 +26,7 @@
     <pattern id="glassPattern" width="26" height="34" patternUnits="userSpaceOnUse">
       <rect width="26" height="34" fill="transparent"/>
       <rect x="3" y="4" width="9" height="12" fill="#F4F5F3" opacity="0.06"/>
-      <rect x="15" y="4" width="8" height="12" fill="#E8C97A" opacity="0.09"/>
+      <rect x="15" y="4" width="8" height="12" fill="#C9A968" opacity="0.09"/>
       <rect x="3" y="19" width="9" height="12" fill="#F4F5F3" opacity="0.04"/>
       <rect x="15" y="19" width="8" height="12" fill="#F4F5F3" opacity="0.08"/>
     </pattern>
@@ -56,9 +56,9 @@
 
   <!-- coroamento -->
   <path d="M430 90 L560 8 L690 90 Z" fill="#2E2414"/>
-  <rect x="555" y="-28" width="10" height="42" fill="#C9A227" opacity="0.9"/>
+  <rect x="555" y="-28" width="10" height="42" fill="#9C7A3D" opacity="0.9"/>
   <circle cx="560" cy="-32" r="5" fill="#FBF3DE"/>
-  <circle cx="560" cy="-32" r="13" fill="#C9A227" opacity="0.4"/>
+  <circle cx="560" cy="-32" r="13" fill="#9C7A3D" opacity="0.4"/>
 
   <!-- volume lateral menor, anexo -->
   <rect x="690" y="260" width="120" height="590" fill="url(#side)"/>

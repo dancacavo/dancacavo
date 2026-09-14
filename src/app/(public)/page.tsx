@@ -46,7 +46,7 @@ export default async function LandingPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.35) 40%, rgba(11,13,12,0.92) 100%), radial-gradient(60% 50% at 80% 0%, rgba(184,144,46,0.45) 0%, transparent 60%)",
+              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.35) 40%, rgba(11,13,12,0.92) 100%), radial-gradient(60% 50% at 80% 0%, rgba(156,122,61,0.45) 0%, transparent 60%)",
           }}
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
