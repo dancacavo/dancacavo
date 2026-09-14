@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ArrowUpRight, LineChart, ShieldCheck, FileStack, LayoutGrid, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProjectCard } from "@/components/domain/ProjectCard";
@@ -36,20 +35,19 @@ export default async function LandingPage() {
 
   return (
     <>
-      {/* HERO */}
+      {/* HERO — ilustração autoral de edifício de alto padrão (não é foto de um
+          empreendimento específico; ver README para o motivo) */}
       <section className="grain relative overflow-hidden bg-ms-black text-white">
-        <Image
-          src="/projects/ms-tower/fachada-entardecer.jpg"
-          alt="MS Tower Village ao entardecer"
-          fill
-          priority
-          className="object-cover"
+        <div
+          className="pointer-events-none absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/backgrounds/luxury-building-hero.svg')" }}
+          aria-hidden
         />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.45) 40%, rgba(11,13,12,0.94) 100%), radial-gradient(60% 50% at 80% 0%, rgba(156,122,61,0.35) 0%, transparent 60%)",
+              "linear-gradient(180deg, rgba(11,18,32,0.35) 0%, rgba(11,18,32,0.35) 40%, rgba(11,18,32,0.9) 100%), radial-gradient(60% 50% at 80% 0%, rgba(156,122,61,0.3) 0%, transparent 60%)",
           }}
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
@@ -75,27 +73,6 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* COMO FUNCIONA */}
-      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mb-14 max-w-lg">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
-            Como funciona
-          </span>
-          <h2 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">
-            Um caminho simples, do primeiro acesso ao acompanhamento.
-          </h2>
-        </div>
-        <div className="grid gap-8 sm:grid-cols-3">
-          {STEPS.map((step) => (
-            <div key={step.number} className="border-t border-ms-black/10 pt-6">
-              <span className="font-display text-3xl text-ms-black/20">{step.number}</span>
-              <h3 className="mt-4 font-display text-xl text-ms-black">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ms-gray-500">{step.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* EMPREENDIMENTOS EM DESTAQUE */}
       <section className="bg-ms-gray-100/60 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
@@ -118,6 +95,27 @@ export default async function LandingPage() {
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* COMO FUNCIONA */}
+      <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mb-14 max-w-lg">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ms-gold-900">
+            Como funciona
+          </span>
+          <h2 className="mt-3 font-display text-3xl text-ms-black sm:text-4xl">
+            Um caminho simples, do primeiro acesso ao acompanhamento.
+          </h2>
+        </div>
+        <div className="grid gap-8 sm:grid-cols-3">
+          {STEPS.map((step) => (
+            <div key={step.number} className="border-t border-ms-black/10 pt-6">
+              <span className="font-display text-3xl text-ms-black/20">{step.number}</span>
+              <h3 className="mt-4 font-display text-xl text-ms-black">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ms-gray-500">{step.description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
