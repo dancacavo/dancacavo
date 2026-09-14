@@ -22,8 +22,7 @@ export default function SobrePage() {
         />
         <div className="absolute inset-0 bg-ms-black/70" />
         <div className="relative mx-auto max-w-3xl px-5 py-28 text-center sm:px-8 sm:py-36">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">Sobre</span>
-          <h1 className="mt-4 font-display text-3xl leading-tight sm:text-4xl">
+          <h1 className="font-display text-3xl leading-tight sm:text-4xl">
             Relacionamento e transparência entre investidores e empreendimentos.
           </h1>
         </div>

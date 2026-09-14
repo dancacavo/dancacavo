@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpRight, LineChart, ShieldCheck, FileStack, LayoutGrid, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProjectCard } from "@/components/domain/ProjectCard";
@@ -37,16 +38,18 @@ export default async function LandingPage() {
     <>
       {/* HERO */}
       <section className="grain relative overflow-hidden bg-ms-black text-white">
-        {/* ilustração de skyline autoral, em baixa opacidade + desfoque, só para dar profundidade */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-skyline opacity-50 blur-[1px]"
-          aria-hidden
+        <Image
+          src="/projects/ms-tower/fachada-entardecer.jpg"
+          alt="MS Tower Village ao entardecer"
+          fill
+          priority
+          className="object-cover"
         />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.35) 40%, rgba(11,13,12,0.92) 100%), radial-gradient(60% 50% at 80% 0%, rgba(156,122,61,0.45) 0%, transparent 60%)",
+              "linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.45) 40%, rgba(11,13,12,0.94) 100%), radial-gradient(60% 50% at 80% 0%, rgba(156,122,61,0.35) 0%, transparent 60%)",
           }}
         />
         <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-24 sm:px-8 sm:pb-32 sm:pt-32">
