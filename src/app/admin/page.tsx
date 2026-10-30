@@ -77,7 +77,13 @@ export default function AdminDashboardPage() {
         <MetricCard label="Empreendimentos" value={projects.length} icon={<Building2 size={18} />} />
         <MetricCard label="Empreendimentos ativos" value={activeProjects.length} icon={<Building2 size={18} />} />
         <MetricCard label="Oportunidades publicadas" value={publishedOpportunities.length} icon={<Star size={18} />} />
-        <MetricCard label="Cadastros recentes" value={recentUsers.length} icon={<UserPlus size={18} />} />
+        <Link href="/admin/usuarios">
+          <MetricCard
+            label="Aguardando aprovação"
+            value={users.filter((u) => u.status === "pendente").length}
+            icon={<UserPlus size={18} />}
+          />
+        </Link>
       </div>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">

@@ -34,10 +34,11 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isOwner(userId) || isAdmin();
       // Criação do próprio perfil no primeiro login; sempre como investidor
-      // ativo — nunca com papel/status elevado.
+      // pendente — o acesso só é liberado quando um administrador aprova
+      // (muda `status` para 'ativo'). Nunca com papel/status elevado.
       allow create: if isOwner(userId) &&
         request.resource.data.role == 'investor' &&
-        request.resource.data.status == 'ativo';
+        request.resource.data.status == 'pendente';
       // O próprio usuário só pode alterar um conjunto restrito de campos
       // (perfil básico + carimbo de último acesso) — nunca `role` ou
       // `status`, que só o administrador pode mudar. Isso evita que um

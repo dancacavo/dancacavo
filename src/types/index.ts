@@ -10,7 +10,8 @@
 export type UserRole = "investor" | "admin";
 
 /** Situação da conta, controlada pelo administrador (nunca pelo próprio usuário). */
-export type UserAccountStatus = "ativo" | "inativo" | "bloqueado";
+/** "pendente": cadastro novo aguardando aprovação de um administrador. */
+export type UserAccountStatus = "pendente" | "ativo" | "inativo" | "bloqueado";
 
 export interface UserProfile {
   id: string;

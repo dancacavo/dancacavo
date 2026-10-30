@@ -36,6 +36,27 @@ interface AuthContextValue {
   refreshProfile: () => Promise<void>;
 }
 
+/**
+ * Garante que todo usuário autenticado tenha documento em `users`. Sem
+ * isso, contas que entram por e-mail/senha sem perfil gravado (criadas no
+ * console do Firebase ou cujo cadastro falhou no meio) nunca apareciam no
+ * painel administrativo para aprovação.
+ */
+async function loadOrCreateProfile(firebaseUser: User) {
+  const existing = await getUserProfile(firebaseUser.uid);
+  if (existing) return existing;
+  try {
+    await ensureUserProfile({
+      uid: firebaseUser.uid,
+      name: firebaseUser.displayName ?? "",
+      email: firebaseUser.email ?? "",
+    });
+  } catch (err) {
+    console.error("Não foi possível criar o perfil do usuário", err);
+  }
+  return getUserProfile(firebaseUser.uid);
+}
+
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -50,12 +71,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const auth = getFirebaseAuth();
     if (!auth) return;
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
       if (firebaseUser) {
-        const p = await getUserProfile(firebaseUser.uid);
+        const p = await loadOrCreateProfile(firebaseUser);
+        // Usuário e perfil são publicados juntos para que as rotas
+        // protegidas nunca vejam uma sessão sem perfil resolvido.
+        setUser(firebaseUser);
         setProfile(p);
         recordLogin(firebaseUser.uid); // melhor esforço, não bloqueia a UI
       } else {
+        setUser(null);
         setProfile(null);
       }
       setLoading(false);
@@ -87,12 +111,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loginWithGoogle = async () => {
     const auth = requireAuth();
     const provider = new GoogleAuthProvider();
-    const credential = await signInWithPopup(auth, provider);
-    await ensureUserProfile({
-      uid: credential.user.uid,
-      name: credential.user.displayName ?? "",
-      email: credential.user.email ?? "",
-    });
+    // O perfil é criado pelo listener de sessão (loadOrCreateProfile).
+    await signInWithPopup(auth, provider);
   };
 
   const signup = async (name: string, email: string, password: string, phone?: string) => {
@@ -100,7 +120,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const credential = await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(credential.user, { displayName: name });
     await ensureUserProfile({ uid: credential.user.uid, name, email, phone });
-    await refreshProfile();
+    setProfile(await getUserProfile(credential.user.uid));
   };
 
   const logout = async () => {
