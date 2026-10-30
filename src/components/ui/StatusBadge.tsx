@@ -17,6 +17,7 @@ const INVESTMENT_LABELS: Record<InvestmentStatus, string> = {
 };
 
 const USER_STATUS_LABELS: Record<UserAccountStatus, string> = {
+  pendente: "Aguardando aprovação",
   ativo: "Ativo",
   inativo: "Inativo",
   bloqueado: "Bloqueado",
@@ -45,6 +46,7 @@ function toneForInvestment(status: InvestmentStatus) {
 
 function toneForUserStatus(status: UserAccountStatus) {
   if (status === "ativo") return "positive";
+  if (status === "pendente") return "warning";
   if (status === "inativo") return "neutral";
   return "danger";
 }

@@ -15,7 +15,12 @@ import { getUserInvestments } from "@/lib/data/investments";
 import { getProjects } from "@/lib/data/projects";
 import type { Investment, Project, UserAccountStatus, UserProfile } from "@/types";
 
-const STATUS_OPTIONS: UserAccountStatus[] = ["ativo", "inativo", "bloqueado"];
+const STATUS_OPTIONS: { value: UserAccountStatus; label: string }[] = [
+  { value: "pendente", label: "Aguardando aprovação" },
+  { value: "ativo", label: "Ativo" },
+  { value: "inativo", label: "Inativo" },
+  { value: "bloqueado", label: "Bloqueado" },
+];
 
 export function UserDetail({ id }: { id: string }) {
   const { profile: currentAdmin } = useAuth();
@@ -48,6 +53,8 @@ export function UserDetail({ id }: { id: string }) {
     setUser({ ...user, status });
     try {
       await updateUserStatus(user.id, status);
+    } catch {
+      setUser(user);
     } finally {
       setSaving(false);
     }
@@ -116,6 +123,11 @@ export function UserDetail({ id }: { id: string }) {
           </dl>
 
           <div className="mt-5 space-y-3 border-t border-ms-black/[0.06] pt-5">
+            {user.status === "pendente" && !isSelf && (
+              <Button size="sm" disabled={saving} onClick={() => handleStatusChange("ativo")} className="w-full">
+                <ShieldCheck size={15} /> Aprovar acesso
+              </Button>
+            )}
             <div>
               <label className="mb-1.5 block text-xs font-medium text-ms-gray-500">Alterar status da conta</label>
               <select
@@ -125,7 +137,7 @@ export function UserDetail({ id }: { id: string }) {
                 className="h-10 w-full rounded-lg border border-ms-black/10 bg-white px-3 text-sm outline-none focus:border-ms-gold-900 disabled:opacity-50"
               >
                 {STATUS_OPTIONS.map((s) => (
-                  <option key={s} value={s}>{s === "ativo" ? "Ativo" : s === "inativo" ? "Inativo" : "Bloqueado"}</option>
+                  <option key={s.value} value={s.value}>{s.label}</option>
                 ))}
               </select>
               {isSelf && <p className="mt-1 text-xs text-ms-gray-500">Você não pode alterar o status da sua própria conta.</p>}

@@ -2,16 +2,18 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Users, Search } from "lucide-react";
+import { Users, Search, Check, X } from "lucide-react";
 import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { UserStatusBadge } from "@/components/ui/StatusBadge";
 import { EmptyState, LoadingState, ErrorState } from "@/components/ui/States";
 import { formatDate } from "@/lib/utils/format";
-import { getAllUsers } from "@/lib/data/users";
+import { getAllUsers, updateUserStatus } from "@/lib/data/users";
 import type { UserAccountStatus, UserProfile } from "@/types";
 
 const STATUS_FILTERS: { value: UserAccountStatus | "todos"; label: string }[] = [
   { value: "todos", label: "Todos os status" },
+  { value: "pendente", label: "Aguardando aprovação" },
   { value: "ativo", label: "Ativo" },
   { value: "inativo", label: "Inativo" },
   { value: "bloqueado", label: "Bloqueado" },
@@ -23,6 +25,8 @@ export default function AdminUsersPage() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<UserAccountStatus | "todos">("todos");
   const [dateFrom, setDateFrom] = useState("");
+  const [savingId, setSavingId] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -33,6 +37,21 @@ export default function AdminUsersPage() {
       cancelled = true;
     };
   }, []);
+
+  const pending = useMemo(() => (users ?? []).filter((u) => u.status === "pendente"), [users]);
+
+  const decide = async (user: UserProfile, status: UserAccountStatus) => {
+    setSavingId(user.id);
+    setActionError(null);
+    try {
+      await updateUserStatus(user.id, status);
+      setUsers((prev) => prev?.map((u) => (u.id === user.id ? { ...u, status } : u)) ?? prev);
+    } catch {
+      setActionError(`Não foi possível atualizar ${user.name || user.email}. Tente novamente.`);
+    } finally {
+      setSavingId(null);
+    }
+  };
 
   const filtered = useMemo(() => {
     if (!users) return [];
@@ -51,6 +70,43 @@ export default function AdminUsersPage() {
     <div>
       <h1 className="font-display text-2xl text-ms-black sm:text-3xl">Usuários</h1>
       <p className="mt-1 text-ms-gray-500">Investidores e administradores cadastrados na plataforma.</p>
+
+      {pending.length > 0 && (
+        <section className="mt-6 rounded-2xl border border-amber-500/30 bg-amber-500/[0.06] p-4 sm:p-5">
+          <h2 className="font-display text-lg text-ms-black">
+            Aguardando aprovação <span className="text-ms-gray-500">({pending.length})</span>
+          </h2>
+          <p className="mt-0.5 text-sm text-ms-gray-500">
+            Novos cadastros só acessam a plataforma depois de aprovados.
+          </p>
+          {actionError && <p className="mt-2 text-sm text-red-600">{actionError}</p>}
+          <div className="mt-4 space-y-2">
+            {pending.map((user) => (
+              <Card key={user.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <Link href={`/admin/usuarios/${user.id}`} className="min-w-0 hover:underline">
+                  <p className="truncate font-medium text-ms-black">{user.name || "Sem nome"}</p>
+                  <p className="truncate text-sm text-ms-gray-500">
+                    {user.email} · Cadastro em {formatDate(user.createdAt)}
+                  </p>
+                </Link>
+                <div className="flex shrink-0 gap-2">
+                  <Button size="sm" disabled={savingId === user.id} onClick={() => decide(user, "ativo")}>
+                    <Check size={15} /> Aprovar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={savingId === user.id}
+                    onClick={() => decide(user, "bloqueado")}
+                  >
+                    <X size={15} /> Recusar
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
